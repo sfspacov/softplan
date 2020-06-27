@@ -86,7 +86,7 @@ namespace ApiApplication
         /// <param name="valorInicial">It's a decimal</param>
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
-        public async Task<string> CalculateInterest(InterestParams interestParams)
+        public async Task<string> CalculateInterest(InterestEntity interestParams)
         {
             try
             {

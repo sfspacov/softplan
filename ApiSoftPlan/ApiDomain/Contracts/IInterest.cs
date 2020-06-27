@@ -7,6 +7,6 @@ namespace ApiDomain.Contracts
     {
         double GetInterest();
         Task<double> GetInterestRate();
-        Task<string> CalculateInterest(InterestParams parameters);
+        Task<string> CalculateInterest(InterestEntity parameters);
     }
 }

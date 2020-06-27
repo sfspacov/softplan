@@ -31,7 +31,7 @@ namespace Api1.Controllers
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
         [HttpGet("calculajuros")]
-        public async Task<ActionResult<string>> Get([FromQuery]InterestParams parameters)
+        public async Task<ActionResult<string>> Get([FromQuery]InterestEntity parameters)
         {
 
             if (parameters.Meses < 0)

@@ -62,7 +62,7 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public async Task Calculate_Param100And5_Ok()
         {
-            var interestParams = new InterestParams { ValorInicial = 100, Meses = 5 };
+            var interestParams = new InterestEntity { ValorInicial = 100, Meses = 5 };
             var mockInterest = new Mock<IInterest>();
             mockInterest.Setup(x => x.CalculateInterest(interestParams)).Returns(Task.FromResult("105.10"));
             var result = await mockInterest.Object.CalculateInterest(interestParams);
@@ -74,7 +74,7 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public async Task Calculate_Params0And0_Ok()
         {
-            var interestParams = new InterestParams { ValorInicial = 0, Meses = 0 };
+            var interestParams = new InterestEntity { ValorInicial = 0, Meses = 0 };
             var mockInterest = new Mock<IInterest>();
             mockInterest.Setup(x => x.CalculateInterest(interestParams)).Returns(Task.FromResult("0,00"));
             var result = await mockInterest.Object.CalculateInterest(interestParams);
@@ -86,7 +86,7 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public async Task Calculate_ParamsNegativeValueAnd5_Ok()
         {
-            var interestParams = new InterestParams { ValorInicial = -10, Meses = 5 };
+            var interestParams = new InterestEntity { ValorInicial = -10, Meses = 5 };
             var mockInterest = new Mock<IInterest>();
             mockInterest.Setup(x => x.CalculateInterest(interestParams)).Returns(Task.FromResult("-10,51"));
             var result = await mockInterest.Object.CalculateInterest(interestParams);
@@ -99,7 +99,7 @@ namespace ApiSoftPlan.Test
         [ExpectedException(typeof(ArgumentException))]
         public async Task Calculate_Param100AndNegativeMounth_Ok()
         {
-            var interestParams = new InterestParams { ValorInicial = 100, Meses = -1 };
+            var interestParams = new InterestEntity { ValorInicial = 100, Meses = -1 };
 
             var result = await _interest.CalculateInterest(interestParams);
         }

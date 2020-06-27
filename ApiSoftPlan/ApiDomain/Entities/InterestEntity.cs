@@ -1,6 +1,6 @@
 ﻿namespace ApiDomain.Entities
 {
-    public class InterestParams
+    public class InterestEntity
     {
         public decimal ValorInicial { get; set; }
         public int Meses { get; set; }
