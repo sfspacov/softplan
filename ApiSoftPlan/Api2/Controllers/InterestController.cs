@@ -4,7 +4,7 @@ using ApiDomain.Contracts;
 using ApiDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api1.Controllers
+namespace Api2.Controllers
 {
     [Route("")]
     [ApiController]

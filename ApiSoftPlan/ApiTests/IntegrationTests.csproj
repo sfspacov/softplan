@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Api1\Api1.csproj" />
+    <ProjectReference Include="..\Api2\Api2.csproj" />
   </ItemGroup>
 <!-- see https://github.com/NuGet/Home/issues/4412 for more info -->
 <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">

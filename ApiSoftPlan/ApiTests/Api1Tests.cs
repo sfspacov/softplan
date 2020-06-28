@@ -3,33 +3,38 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-public class BasicTests
+/// <summary>
+/// Classe that makes Integration Tests in the Api1
+/// </summary>
+public class Api1Tests
 {
-    private readonly string path = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"..\..\..\..\");
-    private readonly string environment = "Development";
+    HttpClient client;
 
-    [Fact]
-    public async Task TaxaJuros_CallMethod_Ok()
+    public Api1Tests()
     {
-        var testedApiName = "Api1";
-        var resource = "/taxaJuros";
+        var path = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"..\..\..\..\Api1");
+        var environment = "Development";
 
         var builder = new WebHostBuilder()
-          .UseContentRoot(path + testedApiName)
+          .UseContentRoot(path)
           .UseEnvironment(environment)
           .UseStartup<Startup>();
 
         var testServer = new TestServer(builder);
+        client = testServer.CreateClient();
 
-        var client = testServer.CreateClient();
+    }
 
+    [Fact]
+    public async Task TaxaJuros_CallMethod_Ok()
+    {
+        var resource = "/taxaJuros";
+        
         var response = await client.GetAsync(resource);
-
-        // Fail the test if non-success result
-        response.EnsureSuccessStatusCode();
 
         var actual = await response.Content.ReadAsStringAsync();
 

@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace ApiSoftPlan.Test
 {
+    /// <summary>
+    /// Classe that makes Unit Tests in the Application layer
+    /// </summary>
     [TestClass]
     public class UnitTest1
     {
@@ -18,12 +21,7 @@ namespace ApiSoftPlan.Test
 
         public UnitTest1()
         {
-            var myConfiguration = new Dictionary<string, string>
-            {
-                {"Api:Url", "http://localhost:1970/"},
-                {"Api:Resource", "taxaJuros"},
-                {"Api:MaxTries", "3"},
-            };
+            var myConfiguration = new Dictionary<string, string>();
 
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(myConfiguration)

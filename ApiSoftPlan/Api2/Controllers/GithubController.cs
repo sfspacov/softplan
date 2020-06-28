@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace Api1.Controllers
+namespace Api2.Controllers
 {
     /// <summary>
     /// Github Controller
