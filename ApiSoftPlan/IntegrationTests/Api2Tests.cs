@@ -53,15 +53,16 @@ public class Api2Tests
 
         var actual = await response.Content.ReadAsStringAsync();
 
-        /*
-         * OBSERVA«√O IMPORTANTE!
-         * Como a Api2 est· rodando atravÈs da classe TestServer (linha 24), qdo ela chamar a Api1 internamente, n„o ter· resposta, pois est· n„o est· sendo executada.
-         * Ainda que se execute a Api1 usando o mesmo esquema do TestServer, no teste integrado a Api2 tentar· chamar a Api1 sendo executada em algum Host ou IIS.
-         * Logo, neste cen·rio, n„o È possÌvel fazer um teste integrado POR AQUI, em que a Api2 chame a Api1 e obtenha o resultado real.
-         * Seria necess·rio usar o Selenium ou outra ferramenta do tipo, mas isso foge totalmente do escopo do desafio que me foi proposto pela Softplan.
-         */
-
         var expected = "100,00";
+
+        /*
+         * OBSERVA√á√ÉO IMPORTANTE!
+         * Como a Api2 est√° rodando atrav√©s da classe TestServer (linha 24), qdo ela chamar a Api1 internamente, n√£o ter√° resposta, pois est√° n√£o est√° sendo executada.
+         * Ainda que se execute a Api1 usando o mesmo esquema do TestServer, qdo se executar o teste integrado da Api2, ela tentar√° chamar a Api1 sendo executada em algum Host ou IIS.
+         * Logo, neste cen√°rio, n√£o √© poss√≠vel fazer um teste integrado POR AQUI, em que a Api2 chame a Api1 e obtenha o resultado real.
+         * Por isso o resultado esperado √© "100,00" e n√£o "105,10", pois a Api1 retorna Juros = 0 para a Api2.
+         * Seria necess√°rio usar o Fiddler ou Postman pra ter um teste integrado fiel, mas isso foge totalmente do escopo do desafio proposto pela Softplan.
+         */
 
         Assert.Equal(expected, actual);
     }
@@ -75,7 +76,7 @@ public class Api2Tests
 
         var actual = await response.Content.ReadAsStringAsync();
 
-        var expected = "MÍs n„o pode ser negativo";
+        var expected = "M√™s n√£o pode ser negativo";
 
         Assert.Equal(expected, actual);
     }
