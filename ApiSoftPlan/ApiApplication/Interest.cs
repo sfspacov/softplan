@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace ApiApplication
 {
+    /// <summary>
+    /// Interest application class
+    /// </summary>
     public class Interest : IInterest
     {
+        #region Attributes
         private IConfiguration configuration;
+        #endregion
 
         #region Constructor
         /// <summary>

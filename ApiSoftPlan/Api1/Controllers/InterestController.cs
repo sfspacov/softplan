@@ -4,11 +4,16 @@ using System;
 
 namespace Api1.Controllers
 {
+    /// <summary>
+    /// Controller Interest
+    /// </summary>
     [Route("")]
     [ApiController]
     public class InterestController : ControllerBase
     {
+        #region Attributes
         private readonly IInterest _interest;
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -18,7 +23,7 @@ namespace Api1.Controllers
         public InterestController(IInterest interest)
         {
             _interest = interest;
-        } 
+        }
         #endregion
 
         #region Public Methods
@@ -40,7 +45,7 @@ namespace Api1.Controllers
 
                 throw e;
             }
-        } 
+        }
         #endregion
     }
 }

@@ -6,11 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api2.Controllers
 {
+    /// <summary>
+    /// Controller Interest
+    /// </summary>
     [Route("")]
     [ApiController]
     public class InterestController : ControllerBase
     {
+        #region Attributes
         private readonly IInterest _interest;
+        #endregion
 
         #region Constructors
         /// <summary>

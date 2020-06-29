@@ -25,9 +25,8 @@ public class Api2Tests
           .UseEnvironment(environment)
           .UseStartup<Startup>();
 
-        var testServer = new TestServer(builder);
-        client = testServer.CreateClient();
-
+        client = new TestServer(builder)
+            .CreateClient();
     }
 
     [Fact]
@@ -57,7 +56,7 @@ public class Api2Tests
 
         /*
          * OBSERVAÇÃO IMPORTANTE!
-         * Como a Api2 está rodando através da classe TestServer (linha 24), qdo ela chamar a Api1 internamente, não terá resposta, pois está não está sendo executada.
+         * Como a Api2 está rodando através da classe TestServer (linha 28), qdo ela chamar a Api1 internamente, não terá resposta, pois está não está sendo executada.
          * Ainda que se execute a Api1 usando o mesmo esquema do TestServer, qdo se executar o teste integrado da Api2, ela tentará chamar a Api1 sendo executada em algum Host ou IIS.
          * Logo, neste cenário, não é possível fazer um teste integrado POR AQUI, em que a Api2 chame a Api1 e obtenha o resultado real.
          * Por isso o resultado esperado é "100,00" e não "105,10", pois a Api1 retorna Juros = 0 para a Api2.
