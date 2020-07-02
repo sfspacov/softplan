@@ -42,7 +42,7 @@ namespace ApiApplication
         /// Method that get the interest value from Api1
         /// </summary>
         /// <returns>Interest value</returns>
-        public async Task<double> GetInterestRate()
+        public virtual async Task<double> GetInterestRate()
         {
             double result = 0;
 

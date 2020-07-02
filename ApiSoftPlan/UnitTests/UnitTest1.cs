@@ -1,5 +1,4 @@
 using ApiApplication;
-using ApiDomain.Contracts;
 using ApiDomain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,18 +16,20 @@ namespace ApiSoftPlan.Test
     public class UnitTest1
     {
         private readonly Github _github;
-        private readonly Interest _interest;
+        private readonly IConfiguration _configuration;
+        private readonly Mock<Interest> _mockInterest;
 
         public UnitTest1()
         {
             var myConfiguration = new Dictionary<string, string>();
 
-            var configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(myConfiguration)
                 .Build();
 
             _github = new Github();
-            _interest = new Interest(configuration);
+            _mockInterest = new MockRepository(MockBehavior.Default).Create<Interest>(_configuration);
+            _mockInterest.Setup(x => x.GetInterestRate()).Returns(Task.FromResult(0.01));
         }
 
         [TestMethod]
@@ -42,7 +43,7 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public void GetInterest_CallMethod_Ok()
         {
-            var result = _interest.GetInterest();
+            var result = _mockInterest.Object.GetInterest();
             var expected = 0.01;
             Assert.AreEqual(expected, result);
         }
@@ -50,9 +51,7 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public async Task GetInterestRate_CallMethod_Ok()
         {
-            var mockInterest = new Mock<IInterest>();
-            mockInterest.Setup(x => x.GetInterestRate()).Returns(Task.FromResult(0.01));
-            var result = await mockInterest.Object.GetInterestRate();
+            var result = await _mockInterest.Object.GetInterestRate();
             var expected = 0.01;
             Assert.AreEqual(expected, result);
         }
@@ -61,10 +60,8 @@ namespace ApiSoftPlan.Test
         public async Task Calculate_Param100And5_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = 5 };
-            var mockInterest = new Mock<IInterest>();
-            mockInterest.Setup(x => x.CalculateInterest(interestParams)).Returns(Task.FromResult("105.10"));
-            var result = await mockInterest.Object.CalculateInterest(interestParams);
-            var expected = "105.10";
+            var result = await _mockInterest.Object.CalculateInterest(interestParams);
+            var expected = "105,10";
 
             Assert.AreEqual(expected, result);
         }
@@ -73,9 +70,7 @@ namespace ApiSoftPlan.Test
         public async Task Calculate_Params0And0_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 0, Meses = 0 };
-            var mockInterest = new Mock<IInterest>();
-            mockInterest.Setup(x => x.CalculateInterest(interestParams)).Returns(Task.FromResult("0,00"));
-            var result = await mockInterest.Object.CalculateInterest(interestParams);
+            var result = await _mockInterest.Object.CalculateInterest(interestParams);
             var expected = "0,00";
 
             Assert.AreEqual(expected, result);
@@ -85,9 +80,7 @@ namespace ApiSoftPlan.Test
         public async Task Calculate_ParamsNegativeValueAnd5_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = -10, Meses = 5 };
-            var mockInterest = new Mock<IInterest>();
-            mockInterest.Setup(x => x.CalculateInterest(interestParams)).Returns(Task.FromResult("-10,51"));
-            var result = await mockInterest.Object.CalculateInterest(interestParams);
+            var result = await _mockInterest.Object.CalculateInterest(interestParams);
             var expected = "-10,51";
 
             Assert.AreEqual(expected, result);
@@ -99,7 +92,7 @@ namespace ApiSoftPlan.Test
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = -1 };
 
-            var result = await _interest.CalculateInterest(interestParams);
+            var result = await _mockInterest.Object.CalculateInterest(interestParams);
         }
     }
 }
