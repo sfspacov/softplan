@@ -698,7 +698,7 @@ namespace SimpleLogger
 
             if(ex is COMException)
             {
-                var comEx = (COMException)ex;
+                COMException comEx = (COMException)ex;
                 var xComElement = new XElement("ComException");
                 xComElement.Add(new XAttribute("ErrorCode", string.Format("0x{0:X8}", (uint)comEx.ErrorCode)));
                 xElement.Add(xComElement);
@@ -1155,8 +1155,6 @@ namespace SimpleLogger
 
             try
             {
-                const string source = "SimpleLog";
-                const string logName = "Application";
                 string message;
 
                 try
