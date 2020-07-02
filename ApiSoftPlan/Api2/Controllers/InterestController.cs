@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ApiDomain.Contracts;
 using ApiDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using SimpleLogger;
 
 namespace Api2.Controllers
 {
@@ -40,7 +41,12 @@ namespace Api2.Controllers
         {
 
             if (parameters.Meses < 0)
-                return BadRequest("Mês não pode ser negativo");
+            {
+                var msg = "Mês não pode ser negativo";
+                SimpleLog.Warning(msg);
+
+                return BadRequest(msg);
+            }
 
             try
             {
@@ -50,6 +56,7 @@ namespace Api2.Controllers
             }
             catch (Exception e)
             {
+                SimpleLog.Error("Message: " + e.Message + "; InnerException: " + e.InnerException);
                 throw e;
             }
         }

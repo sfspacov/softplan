@@ -1,6 +1,7 @@
 ﻿using ApiDomain.Contracts;
 using ApiDomain.Entities;
 using Microsoft.Extensions.Configuration;
+using SimpleLogger;
 using System;
 using System.Globalization;
 using System.Net.Http;
@@ -79,7 +80,10 @@ namespace ApiApplication
                 {
                     tries++;
                     if (tries == maxTries)
+                    {
+                        SimpleLog.Error("Message: " + e.Message + "; InnerException: " + e.InnerException);
                         throw e;
+                    }
                 }
             }
             return result;
@@ -105,6 +109,7 @@ namespace ApiApplication
             }
             catch (Exception e)
             {
+                SimpleLog.Error("Message: " + e.Message + "; InnerException: " + e.InnerException);
                 throw e;
             }
         }

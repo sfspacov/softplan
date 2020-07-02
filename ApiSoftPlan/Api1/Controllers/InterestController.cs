@@ -1,5 +1,6 @@
 ﻿using ApiDomain.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using SimpleLogger;
 using System;
 
 namespace Api1.Controllers
@@ -42,7 +43,7 @@ namespace Api1.Controllers
             }
             catch (Exception e)
             {
-
+                SimpleLog.Error("Message: " + e.Message + "; InnerException: " + e.InnerException);
                 throw e;
             }
         }
