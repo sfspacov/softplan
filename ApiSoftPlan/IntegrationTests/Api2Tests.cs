@@ -30,7 +30,7 @@ public class Api2Tests
         else
             actual = await client.GetAsync(url + resource).Result.Content.ReadAsStringAsync();
 
-        var expected = "https://github.com/sfspacov/softplan";
+        var expected = "https://github.com/sfspacov/unitAndIntegrationTest/";
 
         Assert.Equal(expected, actual);
     }
