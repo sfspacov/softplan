@@ -36,7 +36,7 @@ namespace ApiApplication
         /// <returns>Interest rates</returns>
         public double GetInterest()
         {
-            return 0.01;
+            return 0.02;
         }
 
         /// <summary>
