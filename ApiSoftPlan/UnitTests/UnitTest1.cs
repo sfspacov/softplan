@@ -29,7 +29,7 @@ namespace ApiSoftPlan.Test
 
             _github = new Github();
             _mockInterest = new MockRepository(MockBehavior.Default).Create<Interest>(_configuration);
-            _mockInterest.Setup(x => x.GetInterestRate()).Returns(Task.FromResult(0.01));
+            _mockInterest.Setup(x => x.GetInterestRate()).Returns(Task.FromResult(0.02));
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace ApiSoftPlan.Test
         public void GetInterest_CallMethod_Ok()
         {
             var result = _mockInterest.Object.GetInterest();
-            var expected = 0.01;
+            var expected = 0.02;
             Assert.AreEqual(expected, result);
         }
 
@@ -52,7 +52,7 @@ namespace ApiSoftPlan.Test
         public async Task GetInterestRate_CallMethod_Ok()
         {
             var result = await _mockInterest.Object.GetInterestRate();
-            var expected = 0.01;
+            var expected = 0.02;
             Assert.AreEqual(expected, result);
         }
 
@@ -61,7 +61,7 @@ namespace ApiSoftPlan.Test
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = 5 };
             var result = await _mockInterest.Object.CalculateInterest(interestParams);
-            var expected = "105,10";
+            var expected = "110,41";
 
             Assert.AreEqual(expected, result);
         }
@@ -81,7 +81,7 @@ namespace ApiSoftPlan.Test
         {
             var interestParams = new InterestEntity { ValorInicial = -10, Meses = 5 };
             var result = await _mockInterest.Object.CalculateInterest(interestParams);
-            var expected = "-10,51";
+            var expected = "-11,04";
 
             Assert.AreEqual(expected, result);
         }

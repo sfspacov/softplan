@@ -51,7 +51,7 @@ public class Api2Tests
         else
             actual = await client.GetAsync(url + resource).Result.Content.ReadAsStringAsync();
 
-        var expected = "105,10";
+        var expected = "110,41";
 
         Assert.Equal(expected, actual);
     }
@@ -93,7 +93,7 @@ public class Api2Tests
         else
             actual = await client.GetAsync(url + resource).Result.Content.ReadAsStringAsync();
 
-        var expected = "-105,10";
+        var expected = "-110,41";
 
         Assert.Equal(expected, actual);
     }

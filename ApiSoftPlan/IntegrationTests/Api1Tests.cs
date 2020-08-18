@@ -38,7 +38,7 @@ public class Api1Tests
 
         var actual = await response.Content.ReadAsStringAsync();
 
-        var expected = "0.01";
+        var expected = "0.02";
 
         Assert.Equal(expected, actual);
     }
