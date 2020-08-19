@@ -36,11 +36,11 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalculaJuros_Param100And5_Ok()
+    public async Task CalcularDivida_Param100And5_Ok()
     {
         var url = "http://localhost:5002/";
 
-        var resource = "/calculajuros?valorinicial=100&meses=5";
+        var resource = "/calcularDivida?valorinicial=100&meses=5";
 
         var response = await client.GetAsync(url + resource);
 
@@ -57,11 +57,11 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalculaJuros_100AndNegativeMonth_BadRequest()
+    public async Task CalcularDivida_100AndNegativeMonth_BadRequest()
     {
         var url = "http://localhost:5002/";
 
-        var resource = "/calculajuros?valorinicial=100&meses=-5";
+        var resource = "/calcularDivida?valorinicial=100&meses=-5";
 
         var response = await client.GetAsync(url + resource);
 
@@ -78,11 +78,11 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalculaJuros_NegativeInitialValueAndMonth_BadRequest()
+    public async Task CalcularDivida_NegativeInitialValueAndMonth_BadRequest()
     {
         var url = "http://localhost:5002/";
 
-        var resource = "/calculajuros?valorinicial=-100&meses=5";
+        var resource = "/calcularDivida?valorinicial=-100&meses=5";
 
         var response = await client.GetAsync(url + resource);
 
@@ -99,11 +99,11 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalculaJuros_WithoutParams_Zero()
+    public async Task CalcularDivida_WithoutParams_Zero()
     {
         var url = "http://localhost:5002/";
 
-        var resource = "/calculajuros";
+        var resource = "/calcularDivida";
 
         var response = await client.GetAsync(url + resource);
 
@@ -120,11 +120,11 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalculaJuros_InvalidParam_ErrorMessage()
+    public async Task CalcularDivida_InvalidParam_ErrorMessage()
     {
         var url = "http://localhost:5002/";
 
-        var resource = "/calculajuros?valorinicial=t";
+        var resource = "/calcularDivida?valorinicial=t";
 
         var response = await client.GetAsync(url + resource);
 

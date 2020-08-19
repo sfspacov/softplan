@@ -30,9 +30,9 @@ public class Api1Tests
     }
 
     [Fact]
-    public async Task TaxaJuros_CallMethod_Ok()
+    public async Task RetornarTaxaJuros_CallMethod_Ok()
     {
-        var resource = "/taxaJuros";
+        var resource = "/retornarTaxaDeJuros";
         
         var response = await client.GetAsync(resource);
 
