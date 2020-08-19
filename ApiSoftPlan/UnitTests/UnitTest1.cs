@@ -36,7 +36,7 @@ namespace ApiSoftPlan.Test
         public void ShowMeTheCode_CallMethod_Ok()
         {
             var result = _github.ShowMeTheCode();
-            var expected = "https://github.com/sfspacov/unitAndIntegrationTest/";
+            var expected = "https://github.com/sfspacov/testesUnitariosEIntegrados/";
             Assert.AreEqual(expected, result);
         }
 
