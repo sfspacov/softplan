@@ -36,7 +36,7 @@ namespace Api2.Controllers
         /// <param name="valorInicial">It's a decimal</param>
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
-        [HttpGet("calculajuros")]
+        [HttpGet("calcularDivida")]
         public async Task<ActionResult<string>> Get([FromQuery]InterestEntity parameters)
         {
 

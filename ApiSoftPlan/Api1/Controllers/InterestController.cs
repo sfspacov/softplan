@@ -32,7 +32,7 @@ namespace Api1.Controllers
         /// Method that returns interest rates
         /// </summary>
         /// <returns>Interest rates</returns>
-        [HttpGet("taxaJuros")]
+        [HttpGet("retornarTaxaDeJuros")]
         public ActionResult<double> Get()
         {
             try
