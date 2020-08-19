@@ -1,10 +1,7 @@
-using Api1;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.PlatformAbstractions;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
+using Api1.Controllers;
+using ApiApplication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 /// <summary>
@@ -12,33 +9,25 @@ using Xunit;
 /// </summary>
 public class Api1Tests
 {
-    HttpClient client;
+    readonly IConfiguration config = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .Build();
+
+    readonly InterestController interestController;
 
     public Api1Tests()
     {
-        var path = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"..\..\..\..\Api1");
-        var environment = "Development";
-
-        var builder = new WebHostBuilder()
-          .UseContentRoot(path)
-          .UseEnvironment(environment)
-          .UseStartup<Startup>();
-
-        var testServer = new TestServer(builder);
-        client = testServer.CreateClient();
-
+        interestController = new InterestController(new Interest(config));
     }
 
     [Fact]
-    public async Task RetornarTaxaJuros_CallMethod_Ok()
+    public void RetornarTaxaJuros_CallMethod_Ok()
     {
-        var resource = "/retornarTaxaDeJuros";
-        
-        var response = await client.GetAsync(resource);
+        var resultado = interestController.Get();
 
-        var actual = await response.Content.ReadAsStringAsync();
+        var actual = (resultado.Result as OkObjectResult).Value;
 
-        var expected = "0.02";
+        var expected = 0.02;
 
         Assert.Equal(expected, actual);
     }
