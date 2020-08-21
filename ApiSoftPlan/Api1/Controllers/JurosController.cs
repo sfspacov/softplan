@@ -10,20 +10,20 @@ namespace Api1.Controllers
     /// </summary>
     [Route("")]
     [ApiController]
-    public class InterestController : ControllerBase
+    public class JurosController : ControllerBase
     {
         #region Attributes
-        private readonly IJuros _interest;
+        private readonly IJuros _juros;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="interest">Interest interface</param>
-        public InterestController(IJuros interest)
+        /// <param name="juros">Interest interface</param>
+        public JurosController(IJuros juros)
         {
-            _interest = interest;
+            _juros = juros;
         }
         #endregion
 
@@ -37,7 +37,7 @@ namespace Api1.Controllers
         {
             try
             {
-                var result = _interest.RetornarTaxaDeJuros();
+                var result = _juros.RetornarTaxaDeJuros();
 
                 return Ok(result);
             }

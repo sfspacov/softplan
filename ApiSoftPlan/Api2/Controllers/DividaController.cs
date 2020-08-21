@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using ApiDomain.Contracts;
 using ApiDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +11,20 @@ namespace Api2.Controllers
     /// </summary>
     [Route("")]
     [ApiController]
-    public class InterestController : ControllerBase
+    public class DividaController : ControllerBase
     {
         #region Attributes
-        private readonly IJuros _interest;
+        private readonly IDivida _idivida;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="interest">Interest interface</param>
-        public InterestController(IJuros interest)
+        /// <param name="idivida">Interest interface</param>
+        public DividaController(IDivida idivida)
         {
-            _interest = interest;
+            _idivida = idivida;
         }
         #endregion
 
@@ -37,7 +36,7 @@ namespace Api2.Controllers
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
         [HttpGet("calcularDivida")]
-        public ActionResult<string> Get([FromQuery]InterestEntity parameters)
+        public ActionResult<string> Get([FromQuery]DividaEntity parameters)
         {
 
             if (parameters.Meses < 0)
@@ -49,7 +48,7 @@ namespace Api2.Controllers
             }
             try
             {
-                var result = _interest.CalcularDivida(parameters);
+                var result = _idivida.CalcularDivida(parameters);
 
                 return Ok(result);
             }

@@ -3,7 +3,7 @@
     /// <summary>
     /// Interest Entity
     /// </summary>
-    public class InterestEntity
+    public class DividaEntity
     {
         /// <summary>
         /// Valor Inicial, decimal parameter

@@ -16,7 +16,8 @@ namespace ApiSoftPlan.Test
     {
         private readonly Github _github;
         private readonly IConfiguration _configuration;
-        private readonly Mock<IJuros> _mockInterest;
+        private readonly Mock<Juros> _mockJuros;
+        private readonly Mock<Divida> _mockDivida;
 
         public UnitTest1()
         {
@@ -27,8 +28,9 @@ namespace ApiSoftPlan.Test
                 .Build();
 
             _github = new Github();
-            _mockInterest = new MockRepository(MockBehavior.Default).Create<IJuros>(_configuration);
-            _mockInterest.Setup(x => x.RetornarTaxaDeJuros()).Returns(0.02);
+            _mockJuros = new MockRepository(MockBehavior.Default).Create<Juros>(_configuration);
+            _mockJuros.Setup(x => x.RetornarTaxaDeJuros()).Returns(0.02);
+            _mockDivida = new MockRepository(MockBehavior.Default).Create<Divida>(_configuration, _mockJuros.Object);
         }
 
         [TestMethod]
@@ -43,7 +45,7 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public void RetornarTaxaDeJuros_CallMethod_Ok()
         {
-            var result = _mockInterest.Object.RetornarTaxaDeJuros();
+            var result = _mockJuros.Object.RetornarTaxaDeJuros();
             var expected = 0.02;
             Assert.AreEqual(expected, result);
         }
@@ -51,8 +53,8 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public void CalcularDivida_100E5_Ok()
         {
-            var interestParams = new InterestEntity { ValorInicial = 100, Meses = 5 };
-            var result = _mockInterest.Object.CalcularDivida(interestParams);
+            var interestParams = new DividaEntity { ValorInicial = 100, Meses = 5 };
+            var result = _mockDivida.Object.CalcularDivida(interestParams);
             var expected = "110,41";
 
             Assert.AreEqual(expected, result);
@@ -61,8 +63,8 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public void CalcularDivida_0E0_Ok()
         {
-            var interestParams = new InterestEntity { ValorInicial = 0, Meses = 0 };
-            var result = _mockInterest.Object.CalcularDivida(interestParams);
+            var interestParams = new DividaEntity { ValorInicial = 0, Meses = 0 };
+            var result = _mockDivida.Object.CalcularDivida(interestParams);
             var expected = "0,00";
 
             Assert.AreEqual(expected, result);
@@ -71,8 +73,8 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public void CalcularDivida_ValorInicialNegativoE5_Ok()
         {
-            var interestParams = new InterestEntity { ValorInicial = -100, Meses = 5 };
-            var result = _mockInterest.Object.CalcularDivida(interestParams);
+            var interestParams = new DividaEntity { ValorInicial = -100, Meses = 5 };
+            var result = _mockDivida.Object.CalcularDivida(interestParams);
             var expected = "-110,41";
 
             Assert.AreEqual(expected, result);
@@ -82,9 +84,9 @@ namespace ApiSoftPlan.Test
         [ExpectedException(typeof(ArgumentException))]
         public void CalcularDivida_100EMesNegativo_Ok()
         {
-            var interestParams = new InterestEntity { ValorInicial = 100, Meses = -1 };
+            var interestParams = new DividaEntity { ValorInicial = 100, Meses = -1 };
 
-            var result = _mockInterest.Object.CalcularDivida(interestParams);
+            var result = _mockDivida.Object.CalcularDivida(interestParams);
         }
     }
 }

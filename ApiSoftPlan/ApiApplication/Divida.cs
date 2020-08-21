@@ -9,50 +9,44 @@ namespace ApiApplication
     /// <summary>
     /// Interest application class
     /// </summary>
-    public class IJuros : ApiDomain.Contracts.IJuros
+    public class Divida : IDivida
     {
         #region Attributes
-        private IConfiguration configuration;
+        private readonly IConfiguration _configuration;
+        private readonly IJuros _juros;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="iConfig">Parameter that contains all configurations from the appsettings.json</param>
-        public IJuros(IConfiguration iConfig)
+        /// <param name="iconfiguration">Parameter that contains all configurations from the appsettings.json</param>
+        public Divida(IConfiguration iconfiguration, IJuros juros)
         {
-            configuration = iConfig;
+            _configuration = iconfiguration;
+            _juros = juros;
         }
         #endregion
 
         #region Public Methods
-        /// <summary>
-        /// Method that returns interest rates
-        /// </summary>
-        /// <returns>Interest rates</returns>
-        public virtual double RetornarTaxaDeJuros()
-        {
-            return 0.02;
-        }
-
-        /// <summary>
+               /// <summary>
         /// Method that calculates memory, compound interest, according to a formula: Valor Final = Valor Inicial * (1 + juros) ^ Tempo
         /// </summary>
         /// <param name="valorInicial">It's a decimal</param>
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
-        public string CalcularDivida(InterestEntity interestParams)
+        public string CalcularDivida(DividaEntity interestParams)
         {
             try
             {
                 if (interestParams.Meses < 0)
                     throw new ArgumentException("Mês não pode ser negativo");
 
-                var apiResult = RetornarTaxaDeJuros();
-                var result = (double)(interestParams.ValorInicial * (decimal)Math.Pow(1 + apiResult, interestParams.Meses));
+                var apiResult = _juros.RetornarTaxaDeJuros();
+                var valorDivida = (double)(interestParams.ValorInicial * (decimal)Math.Pow(1 + apiResult, interestParams.Meses));
+                var valorFormatado = valorDivida.ToString("F");
 
-                return result.ToString("F");
+                return valorFormatado;
             }
             catch (Exception e)
             {

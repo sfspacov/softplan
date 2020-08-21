@@ -3,7 +3,6 @@ using ApiApplication;
 using ApiDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 using Xunit;
 
 /// <summary>
@@ -14,14 +13,13 @@ public class Api2Tests
     readonly IConfiguration config = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json")
         .Build();
-
-    readonly InterestController interestController;
+    readonly DividaController interestController;
     readonly GithubController githubController;
 
 
     public Api2Tests()
     {
-        interestController = new InterestController(new IJuros(config));
+        interestController = new DividaController(new Divida(config, new Juros(config)));
         githubController = new GithubController(new Github());
     }
 
@@ -37,7 +35,7 @@ public class Api2Tests
     [Fact]
     public void CalcularDivida_100E5_Ok()
     {
-        var parameters = new InterestEntity { Meses = 5, ValorInicial = 100 };
+        var parameters = new DividaEntity { Meses = 5, ValorInicial = 100 };
         var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as OkObjectResult).Value;
         var expected = "110,41";
@@ -48,7 +46,7 @@ public class Api2Tests
     [Fact]
     public void CalcularDivida_100EMesNegativo_BadRequest()
     {
-        var parameters = new InterestEntity { Meses = -5, ValorInicial = 100 };
+        var parameters = new DividaEntity { Meses = -5, ValorInicial = 100 };
         var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as BadRequestObjectResult).Value;
         var expected = "Mês não pode ser negativo";
@@ -59,7 +57,7 @@ public class Api2Tests
     [Fact]
     public void CalcularDivida_ValorInicialNegativoE5_BadRequest()
     {
-        var parameters = new InterestEntity { Meses = 5, ValorInicial = -100 };
+        var parameters = new DividaEntity { Meses = 5, ValorInicial = -100 };
         var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as OkObjectResult).Value;
         var expected = "-110,41";
@@ -70,7 +68,7 @@ public class Api2Tests
     [Fact]
     public void CalcularDivida_SemParametros_Zero()
     {
-        var parameters = new InterestEntity();
+        var parameters = new DividaEntity();
         var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as OkObjectResult).Value;
         var expected = "0,00";

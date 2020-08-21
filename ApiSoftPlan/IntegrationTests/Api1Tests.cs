@@ -13,11 +13,11 @@ public class Api1Tests
         .AddJsonFile("appsettings.json")
         .Build();
 
-    readonly InterestController interestController;
+    readonly JurosController interestController;
 
     public Api1Tests()
     {
-        interestController = new InterestController(new IJuros(config));
+        interestController = new JurosController(new Juros(config));
     }
 
     [Fact]
