@@ -29,14 +29,14 @@ namespace ApiSoftPlan.Test
 
             _github = new Github();
             _mockInterest = new MockRepository(MockBehavior.Default).Create<Interest>(_configuration);
-            _mockInterest.Setup(x => x.RetornarTaxaDeJuros()).Returns(Task.FromResult(0.02));
+            _mockInterest.Setup(x => x.RetornarTaxaDeJuros()).Returns(0.02);
         }
 
         [TestMethod]
         public void ShowMeTheCode_CallMethod_Ok()
         {
             var result = _github.ShowMeTheCode();
-            var expected ="https://github.com/sfspacov/unitAndIntegrationTest/";
+            var expected = "https://github.com/sfspacov/unitAndIntegrationTest/";
 
             Assert.AreEqual(expected, result);
         }
@@ -44,56 +44,56 @@ namespace ApiSoftPlan.Test
         [TestMethod]
         public void GetInterest_CallMethod_Ok()
         {
-            var result = _mockInterest.Object.TaxaDeJuros();
+            var result = _mockInterest.Object.RetornarTaxaDeJuros();
             var expected = 0.02;
             Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
-        public async Task GetInterestRate_CallMethod_Ok()
+        public void GetInterestRate_CallMethod_Ok()
         {
-            var result = await _mockInterest.Object.RetornarTaxaDeJuros();
+            var result = _mockInterest.Object.RetornarTaxaDeJuros();
             var expected = 0.02;
             Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
-        public async Task Calculate_Param100And5_Ok()
+        public void Calculate_Param100And5_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = 5 };
-            var result = await _mockInterest.Object.CalcularDivida(interestParams);
+            var result = _mockInterest.Object.CalcularDivida(interestParams);
             var expected = "110,41";
 
             Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
-        public async Task Calculate_Params0And0_Ok()
+        public void Calculate_Params0And0_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 0, Meses = 0 };
-            var result = await _mockInterest.Object.CalcularDivida(interestParams);
+            var result = _mockInterest.Object.CalcularDivida(interestParams);
             var expected = "0,00";
 
             Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
-        public async Task Calculate_ParamsNegativeValueAnd5_Ok()
+        public void Calculate_ParamsNegativeValueAnd5_Ok()
         {
-            var interestParams = new InterestEntity { ValorInicial = -10, Meses = 5 };
-            var result = await _mockInterest.Object.CalcularDivida(interestParams);
-            var expected = "-11,04";
+            var interestParams = new InterestEntity { ValorInicial = -100, Meses = 5 };
+            var result = _mockInterest.Object.CalcularDivida(interestParams);
+            var expected = "-110,41";
 
             Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public async Task Calculate_Param100AndNegativeMounth_Ok()
+        public void Calculate_Param100AndNegativeMounth_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = -1 };
 
-            var result = await _mockInterest.Object.CalcularDivida(interestParams);
+            var result = _mockInterest.Object.CalcularDivida(interestParams);
         }
     }
 }
