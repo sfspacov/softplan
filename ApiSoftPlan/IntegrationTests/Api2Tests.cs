@@ -1,5 +1,6 @@
 using Api2.Controllers;
 using ApiApplication;
+using ApiDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
@@ -37,11 +38,13 @@ public class Api2Tests
     [Fact]
     public async Task CalcularDivida_Param100And5_Ok()
     {
-        var resultado = await interestController.Get(new ApiDomain.Entities.InterestEntity
+        var parameters = new InterestEntity
         {
             Meses = 5,
             ValorInicial = 100
-        });
+        };
+
+        var resultado = await interestController.Get(parameters);
 
         var actual = (resultado.Result as OkObjectResult).Value;
 
@@ -53,11 +56,13 @@ public class Api2Tests
     [Fact]
     public async Task CalcularDivida_100AndNegativeMonth_BadRequest()
     {
-        var resultado = await interestController.Get(new ApiDomain.Entities.InterestEntity
+        var parameters = new InterestEntity
         {
             Meses = -5,
             ValorInicial = 100
-        });
+        };
+
+        var resultado = await interestController.Get(parameters);
 
         var actual = (resultado.Result as BadRequestObjectResult).Value;
 
@@ -69,11 +74,13 @@ public class Api2Tests
     [Fact]
     public async Task CalcularDivida_NegativeInitialValueAndMonth_BadRequest()
     {
-        var resultado = await interestController.Get(new ApiDomain.Entities.InterestEntity
+        var parameters = new InterestEntity
         {
             Meses = 5,
             ValorInicial = -100
-        });
+        };
+
+        var resultado = await interestController.Get(parameters);
 
         var actual = (resultado.Result as OkObjectResult).Value;
 
@@ -85,7 +92,9 @@ public class Api2Tests
     [Fact]
     public async Task CalcularDivida_WithoutParams_Zero()
     {
-        var resultado = await interestController.Get(new ApiDomain.Entities.InterestEntity());
+        var parameters = new InterestEntity();
+
+        var resultado = await interestController.Get(parameters);
 
         var actual = (resultado.Result as OkObjectResult).Value;
 
