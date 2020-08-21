@@ -29,75 +29,50 @@ public class Api2Tests
     public void ShowMeTheCode_CallMethod_Ok()
     {
         var actual = (githubController.Get().Result as OkObjectResult).Value;
-
         var expected = "https://github.com/sfspacov/unitAndIntegrationTest/";
 
         Assert.Equal(expected, actual);
     }
 
     [Fact]
-    public async Task CalcularDivida_Param100And5_Ok()
+    public async Task CalcularDivida_100E5_Ok()
     {
-        var parameters = new InterestEntity
-        {
-            Meses = 5,
-            ValorInicial = 100
-        };
-
+        var parameters = new InterestEntity { Meses = 5, ValorInicial = 100 };
         var resultado = await interestController.Get(parameters);
-
         var actual = (resultado.Result as OkObjectResult).Value;
-
         var expected = "110,41";
 
         Assert.Equal(expected, actual);
     }
 
     [Fact]
-    public async Task CalcularDivida_100AndNegativeMonth_BadRequest()
+    public async Task CalcularDivida_100EMesNegativo_BadRequest()
     {
-        var parameters = new InterestEntity
-        {
-            Meses = -5,
-            ValorInicial = 100
-        };
-
+        var parameters = new InterestEntity { Meses = -5, ValorInicial = 100 };
         var resultado = await interestController.Get(parameters);
-
         var actual = (resultado.Result as BadRequestObjectResult).Value;
-
         var expected = "Mês não pode ser negativo";
 
         Assert.Equal(expected, actual);
     }
 
     [Fact]
-    public async Task CalcularDivida_NegativeInitialValueAndMonth_BadRequest()
+    public async Task CalcularDivida_ValorInicialNegativoE5_BadRequest()
     {
-        var parameters = new InterestEntity
-        {
-            Meses = 5,
-            ValorInicial = -100
-        };
-
+        var parameters = new InterestEntity { Meses = 5, ValorInicial = -100 };
         var resultado = await interestController.Get(parameters);
-
         var actual = (resultado.Result as OkObjectResult).Value;
-
         var expected = "-110,41";
 
         Assert.Equal(expected, actual);
     }
 
     [Fact]
-    public async Task CalcularDivida_WithoutParams_Zero()
+    public async Task CalcularDivida_SemParametros_Zero()
     {
         var parameters = new InterestEntity();
-
         var resultado = await interestController.Get(parameters);
-
         var actual = (resultado.Result as OkObjectResult).Value;
-
         var expected = "0,00";
 
         Assert.Equal(expected, actual);

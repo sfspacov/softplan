@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ApiSoftPlan.Test
 {
@@ -50,7 +49,7 @@ namespace ApiSoftPlan.Test
         }
 
         [TestMethod]
-        public void GetInterestRate_CallMethod_Ok()
+        public void RetornarTaxaDeJuros_CallMethod_Ok()
         {
             var result = _mockInterest.Object.RetornarTaxaDeJuros();
             var expected = 0.02;
@@ -58,7 +57,7 @@ namespace ApiSoftPlan.Test
         }
 
         [TestMethod]
-        public void Calculate_Param100And5_Ok()
+        public void CalcularDivida_100E5_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = 5 };
             var result = _mockInterest.Object.CalcularDivida(interestParams);
@@ -68,7 +67,7 @@ namespace ApiSoftPlan.Test
         }
 
         [TestMethod]
-        public void Calculate_Params0And0_Ok()
+        public void CalcularDivida_0E0_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 0, Meses = 0 };
             var result = _mockInterest.Object.CalcularDivida(interestParams);
@@ -78,7 +77,7 @@ namespace ApiSoftPlan.Test
         }
 
         [TestMethod]
-        public void Calculate_ParamsNegativeValueAnd5_Ok()
+        public void CalcularDivida_ValorInicialNegativoE5_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = -100, Meses = 5 };
             var result = _mockInterest.Object.CalcularDivida(interestParams);
@@ -89,7 +88,7 @@ namespace ApiSoftPlan.Test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Calculate_Param100AndNegativeMounth_Ok()
+        public void CalcularDivida_100EMesNegativo_Ok()
         {
             var interestParams = new InterestEntity { ValorInicial = 100, Meses = -1 };
 
