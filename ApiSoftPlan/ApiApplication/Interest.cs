@@ -36,7 +36,7 @@ namespace ApiApplication
         /// <returns>Interest rates</returns>
         public virtual double RetornarTaxaDeJuros()
         {
-            return 0.02;
+            return 0.05;
         }
 
         /// <summary>
