@@ -12,7 +12,7 @@ namespace ApiApplication
     /// <summary>
     /// Interest application class
     /// </summary>
-    public class Interest : IInterest
+    public class IJuros : ApiDomain.Contracts.IJuros
     {
         #region Attributes
         private IConfiguration configuration;
@@ -23,7 +23,7 @@ namespace ApiApplication
         /// Constructor
         /// </summary>
         /// <param name="iConfig">Parameter that contains all configurations from the appsettings.json</param>
-        public Interest(IConfiguration iConfig)
+        public IJuros(IConfiguration iConfig)
         {
             configuration = iConfig;
         }

@@ -21,7 +21,7 @@ public class Api2Tests
 
     public Api2Tests()
     {
-        interestController = new InterestController(new Interest(config));
+        interestController = new InterestController(new IJuros(config));
         githubController = new GithubController(new Github());
     }
 
@@ -35,10 +35,10 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalcularDivida_100E5_Ok()
+    public void CalcularDivida_100E5_Ok()
     {
         var parameters = new InterestEntity { Meses = 5, ValorInicial = 100 };
-        var resultado = await interestController.Get(parameters);
+        var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as OkObjectResult).Value;
         var expected = "110,41";
 
@@ -46,10 +46,10 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalcularDivida_100EMesNegativo_BadRequest()
+    public void CalcularDivida_100EMesNegativo_BadRequest()
     {
         var parameters = new InterestEntity { Meses = -5, ValorInicial = 100 };
-        var resultado = await interestController.Get(parameters);
+        var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as BadRequestObjectResult).Value;
         var expected = "Mês não pode ser negativo";
 
@@ -57,10 +57,10 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalcularDivida_ValorInicialNegativoE5_BadRequest()
+    public void CalcularDivida_ValorInicialNegativoE5_BadRequest()
     {
         var parameters = new InterestEntity { Meses = 5, ValorInicial = -100 };
-        var resultado = await interestController.Get(parameters);
+        var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as OkObjectResult).Value;
         var expected = "-110,41";
 
@@ -68,10 +68,10 @@ public class Api2Tests
     }
 
     [Fact]
-    public async Task CalcularDivida_SemParametros_Zero()
+    public void CalcularDivida_SemParametros_Zero()
     {
         var parameters = new InterestEntity();
-        var resultado = await interestController.Get(parameters);
+        var resultado = interestController.Get(parameters);
         var actual = (resultado.Result as OkObjectResult).Value;
         var expected = "0,00";
 

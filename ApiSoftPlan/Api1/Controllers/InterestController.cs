@@ -13,7 +13,7 @@ namespace Api1.Controllers
     public class InterestController : ControllerBase
     {
         #region Attributes
-        private readonly IInterest _interest;
+        private readonly IJuros _interest;
         #endregion
 
         #region Constructors
@@ -21,7 +21,7 @@ namespace Api1.Controllers
         /// Constructor
         /// </summary>
         /// <param name="interest">Interest interface</param>
-        public InterestController(IInterest interest)
+        public InterestController(IJuros interest)
         {
             _interest = interest;
         }

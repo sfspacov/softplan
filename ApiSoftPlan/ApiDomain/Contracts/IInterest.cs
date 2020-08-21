@@ -6,7 +6,7 @@ namespace ApiDomain.Contracts
     /// <summary>
     /// Interface IInterest
     /// </summary>
-    public interface IInterest
+    public interface IJuros
     {
         /// <summary>
         /// Method that returns interest rates

@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ApiDomain.Contracts;
-using ApiApplication;
 
 namespace Api1
 {
@@ -21,7 +19,7 @@ namespace Api1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Add(new ServiceDescriptor(typeof(IInterest), typeof(Interest), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(ApiDomain.Contracts.IJuros), typeof(ApiApplication.IJuros), ServiceLifetime.Scoped));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // Register the Swagger generator, defining 1 or more Swagger documents

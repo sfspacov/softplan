@@ -21,7 +21,7 @@ namespace Api2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Add(new ServiceDescriptor(typeof(IInterest), typeof(Interest), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(ApiDomain.Contracts.IJuros), typeof(ApiApplication.IJuros), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IGithub), typeof(Github), ServiceLifetime.Scoped));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

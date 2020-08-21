@@ -15,7 +15,7 @@ namespace Api2.Controllers
     public class InterestController : ControllerBase
     {
         #region Attributes
-        private readonly IInterest _interest;
+        private readonly IJuros _interest;
         #endregion
 
         #region Constructors
@@ -23,7 +23,7 @@ namespace Api2.Controllers
         /// Constructor
         /// </summary>
         /// <param name="interest">Interest interface</param>
-        public InterestController(IInterest interest)
+        public InterestController(IJuros interest)
         {
             _interest = interest;
         }
@@ -37,7 +37,7 @@ namespace Api2.Controllers
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
         [HttpGet("calcularDivida")]
-        public async Task<ActionResult<string>> Get([FromQuery]InterestEntity parameters)
+        public ActionResult<string> Get([FromQuery]InterestEntity parameters)
         {
 
             if (parameters.Meses < 0)
@@ -47,7 +47,6 @@ namespace Api2.Controllers
 
                 return BadRequest(msg);
             }
-
             try
             {
                 var result = _interest.CalcularDivida(parameters);

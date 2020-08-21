@@ -16,7 +16,7 @@ namespace ApiSoftPlan.Test
     {
         private readonly Github _github;
         private readonly IConfiguration _configuration;
-        private readonly Mock<Interest> _mockInterest;
+        private readonly Mock<IJuros> _mockInterest;
 
         public UnitTest1()
         {
@@ -27,7 +27,7 @@ namespace ApiSoftPlan.Test
                 .Build();
 
             _github = new Github();
-            _mockInterest = new MockRepository(MockBehavior.Default).Create<Interest>(_configuration);
+            _mockInterest = new MockRepository(MockBehavior.Default).Create<IJuros>(_configuration);
             _mockInterest.Setup(x => x.RetornarTaxaDeJuros()).Returns(0.02);
         }
 
@@ -37,14 +37,6 @@ namespace ApiSoftPlan.Test
             var result = _github.ShowMeTheCode();
             var expected = "https://github.com/sfspacov/unitAndIntegrationTest/";
 
-            Assert.AreEqual(expected, result);
-        }
-
-        [TestMethod]
-        public void GetInterest_CallMethod_Ok()
-        {
-            var result = _mockInterest.Object.RetornarTaxaDeJuros();
-            var expected = 0.02;
             Assert.AreEqual(expected, result);
         }
 

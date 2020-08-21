@@ -17,7 +17,7 @@ public class Api1Tests
 
     public Api1Tests()
     {
-        interestController = new InterestController(new Interest(config));
+        interestController = new InterestController(new IJuros(config));
     }
 
     [Fact]
