@@ -50,7 +50,7 @@ namespace Api2.Controllers
 
             try
             {
-                var result = await _interest.CalculateInterest(parameters);
+                var result = await _interest.CalcularDivida(parameters);
 
                 return Ok(result);
             }

@@ -34,7 +34,7 @@ namespace ApiApplication
         /// Method that returns interest rates
         /// </summary>
         /// <returns>Interest rates</returns>
-        public double GetInterest()
+        public double TaxaDeJuros()
         {
             return 0.02;
         }
@@ -43,7 +43,7 @@ namespace ApiApplication
         /// Method that get the interest value from Api1
         /// </summary>
         /// <returns>Interest value</returns>
-        public virtual async Task<double> GetInterestRate()
+        public virtual async Task<double> RetornarTaxaDeJuros()
         {
             double result = 0;
 
@@ -95,14 +95,14 @@ namespace ApiApplication
         /// <param name="valorInicial">It's a decimal</param>
         /// <param name="meses">It's a integer</param>
         /// <returns>Calculation result, in decimal format with two places</returns>
-        public async Task<string> CalculateInterest(InterestEntity interestParams)
+        public async Task<string> CalcularDivida(InterestEntity interestParams)
         {
             try
             {
                 if (interestParams.Meses < 0)
                     throw new ArgumentException("Mês não pode ser negativo");
 
-                var apiResult = await GetInterestRate();
+                var apiResult = await RetornarTaxaDeJuros();
                 var result = (double)(interestParams.ValorInicial * (decimal)Math.Pow(1 + apiResult, interestParams.Meses));
 
                 return result.ToString("F");

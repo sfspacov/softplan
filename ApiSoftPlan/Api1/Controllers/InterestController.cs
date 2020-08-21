@@ -37,7 +37,7 @@ namespace Api1.Controllers
         {
             try
             {
-                var result = _interest.GetInterest();
+                var result = _interest.TaxaDeJuros();
 
                 return Ok(result);
             }
