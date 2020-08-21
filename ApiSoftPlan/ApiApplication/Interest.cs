@@ -3,9 +3,6 @@ using ApiDomain.Entities;
 using Microsoft.Extensions.Configuration;
 using SimpleLogger;
 using System;
-using System.Globalization;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace ApiApplication
 {
